@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chess</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <section class="board-wrap">
+      <div id="board" class="board" aria-label="Chess board"></div>
+      <div id="promotion-modal" class="promotion-modal hidden" role="dialog" aria-label="Choose promotion piece">
+        <div class="promotion-inner">
+          <p class="promotion-title">Promote to:</p>
+          <div class="promotion-options">
+            <button class="promo-option" data-type="q" type="button" aria-label="Queen">&#9813;</button>
+            <button class="promo-option" data-type="r" type="button" aria-label="Rook">&#9814;</button>
+            <button class="promo-option" data-type="b" type="button" aria-label="Bishop">&#9815;</button>
+            <button class="promo-option" data-type="n" type="button" aria-label="Knight">&#9816;</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="sidebar">
+      <h1>Chess</h1>
+      <p id="status" class="status" aria-live="polite">White to move</p>
+      <button id="reset-btn" type="button" class="reset-btn">New game</button>
+      <h2>Moves</h2>
+      <ol id="history" class="history" aria-label="Move history"></ol>
+    </aside>
+  </main>
+
+  <script src="chess.js"></script>
+</body>
+</html>

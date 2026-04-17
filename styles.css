@@ -1,0 +1,206 @@
+:root {
+  --light: #f0d9b5;
+  --dark: #b58863;
+  --selected: #f7ec74;
+  --target: rgba(20, 120, 20, 0.35);
+  --target-capture: rgba(200, 40, 40, 0.45);
+  --check: rgba(220, 40, 40, 0.7);
+  --bg: #2b2b2b;
+  --panel: #1f1f1f;
+  --text: #e8e6e3;
+  --muted: #9a9893;
+  --accent: #4a90e2;
+  --square-size: min(11vmin, 72px);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  min-height: 100vh;
+}
+
+.app {
+  display: flex;
+  gap: 32px;
+  padding: 24px;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.board-wrap {
+  position: relative;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(8, var(--square-size));
+  grid-template-rows: repeat(8, var(--square-size));
+  border: 3px solid #111;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  user-select: none;
+}
+
+.square {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: calc(var(--square-size) * 0.72);
+  line-height: 1;
+}
+
+.square.light { background: var(--light); }
+.square.dark { background: var(--dark); }
+.square.selected { box-shadow: inset 0 0 0 4px var(--selected); }
+.square.in-check { background: var(--check); }
+
+.square.target::after {
+  content: "";
+  position: absolute;
+  width: 28%;
+  height: 28%;
+  border-radius: 50%;
+  background: var(--target);
+  pointer-events: none;
+}
+
+.square.target-capture::after {
+  content: "";
+  position: absolute;
+  inset: 6%;
+  border-radius: 50%;
+  border: 4px solid var(--target-capture);
+  pointer-events: none;
+}
+
+.piece {
+  pointer-events: none;
+  line-height: 1;
+  /* Slightly darker stroke for white pieces so they're visible on light squares */
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+.piece-w { color: #fafafa; text-shadow: 0 0 2px #333, 0 1px 1px #444; }
+.piece-b { color: #1a1a1a; }
+
+.coord {
+  position: absolute;
+  font-size: calc(var(--square-size) * 0.16);
+  font-weight: 600;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.rank-coord { top: 2px; left: 4px; }
+.file-coord { bottom: 2px; right: 4px; }
+
+.square.light .coord { color: #6b4a25; }
+.square.dark .coord { color: #f0d9b5; }
+
+.sidebar {
+  background: var(--panel);
+  border-radius: 8px;
+  padding: 20px 24px;
+  min-width: 240px;
+  max-width: 320px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.sidebar h1 {
+  margin: 0 0 12px 0;
+  font-size: 22px;
+  letter-spacing: 0.5px;
+}
+
+.sidebar h2 {
+  margin: 20px 0 8px 0;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+}
+
+.status {
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.reset-btn {
+  background: var(--accent);
+  color: white;
+  border: 0;
+  border-radius: 4px;
+  padding: 8px 14px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.reset-btn:hover { filter: brightness(1.1); }
+
+.history {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 360px;
+  overflow-y: auto;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 13px;
+}
+
+.history li {
+  padding: 3px 0;
+  color: var(--text);
+  border-bottom: 1px solid #2e2e2e;
+}
+
+.promotion-modal {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.promotion-modal.hidden { display: none; }
+
+.promotion-inner {
+  background: var(--panel);
+  padding: 16px 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.promotion-title {
+  margin: 0 0 10px 0;
+  color: var(--text);
+  font-size: 14px;
+}
+
+.promotion-options {
+  display: flex;
+  gap: 8px;
+}
+
+.promo-option {
+  font-size: 40px;
+  width: 60px;
+  height: 60px;
+  background: var(--light);
+  color: #1a1a1a;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.promo-option:hover { border-color: var(--accent); }
